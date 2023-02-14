@@ -21,6 +21,10 @@ public class Address {
     }
 
 
+    public PublicKey getPK(){
+        return this.publicKeyPK;
+    }
+
     @Override
     public String toString() {
         
@@ -28,6 +32,29 @@ public class Address {
         addres.append("Public Key\t"+this.publicKeyPK.hashCode()+"\nBalance:\t"+this.balance);
         return addres.toString();
 
+    }
+
+
+    public void transferEZI(double d) {
+
+        this.balance += d;
+
+    }
+
+
+    public void send(TokenContract contrato, double d) {
+
+        if (this.balance >= d) {
+            
+            this.balance -= d;
+            contrato.playable(this.publicKeyPK, d);
+
+
+        } 
+    }
+
+    public double getBalance(){
+        return this.balance;
     }
 
 }
